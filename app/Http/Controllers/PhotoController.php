@@ -2,11 +2,10 @@
 
     namespace App\Http\Controllers;
 
-    use App\Http\Requests\PhotoFormRequest;
+    use App\Models\Photo;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
-    use stdClass;
     use Validator;
 
     class PhotoController extends Controller
@@ -41,7 +40,7 @@
         {
             $validator = Validator::make($request->all(), [
                 'title' => 'required|max:10',
-                'description' => 'max:250'
+                'description' => 'required|max:250'
             ],[
                 'title.required' => 'le titre est obligatoire'
             ]);
@@ -50,10 +49,15 @@
                 return response()->json(['erros'=> $validator->errors()]);
             }
 
-            $photo = new stdClass();
-            $photo->title = $request->input('title');
-            $photo->description = $request->input('description');
-            return response()->json($photo);
+            Photo::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description')
+
+            ]);
+
+
+
+            return response()->json(['succes' => 'Infos enregistrés' ]);
         }
 
         /**

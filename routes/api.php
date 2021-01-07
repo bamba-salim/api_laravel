@@ -15,7 +15,6 @@
     |
     */
 
-    Route::get('/users', [TestController::class, 'getMethod']);
+    Route::post('/photos', [PhotoController::class, 'store'])->middleware('photo');
 
-    Route::post('/users', [TestController::class, 'testPost']);
-    Route::post('/photos',[PhotoController::class, 'store'])->middleware('photo');
+
