@@ -1,8 +1,6 @@
 <?php
 
-    use App\Http\Controllers\PhotoController;
     use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\TestController;
 
     /*
     |--------------------------------------------------------------------------
@@ -15,6 +13,5 @@
     |
     */
 
-    Route::post('/photos', [PhotoController::class, 'store'])->middleware('photo');
 
 
