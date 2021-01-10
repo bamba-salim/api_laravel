@@ -46,7 +46,7 @@
                 $user = User::where('email',$request->input('email'))->firstOrFail();
                 return response()->json($user);
             } else {
-                return response()->json(['error'=>'Mauvais identifiant de connexion !'],401);
+                return response()->json(['errors'=> ['identifiant' => 'Mauvais identifiant de connexion !']],401);
             }
         }
 
