@@ -6,7 +6,7 @@
 
   class RegisterFormValidation
   {
-      public function rules()
+      public function rules(): array
       {
           return [
               'name' => ['required', 'string', 'max:50', 'min:3'],
@@ -16,7 +16,7 @@
           ];
       }
 
-      public function messages()
+      public function messages(): array
       {
           return [
               'name.required' => 'Vous devez spécifiez votre nom',

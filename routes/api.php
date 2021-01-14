@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\PictureController as picturectlr;
     use Illuminate\Support\Facades\Route;
 
     /*
@@ -17,3 +18,9 @@
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
+    Route::get('/pictures', function (){
+
+    });
+
+    Route::get('/pictures',[picturectlr::class,'fetchAll']);
+    Route::post('/pictures',[picturectlr::class, 'store']);

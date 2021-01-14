@@ -4,7 +4,6 @@
 
     use App\Http\FormValidation\LoginFormValidation;
     use App\Http\FormValidation\RegisterFormValidation;
-    use App\Http\Requests\RegisterRequest;
     use App\Models\User;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
@@ -22,14 +21,13 @@
                 return response()->json(['errors' => $validator->errors()],401);
             }
 
-            $token = Str::random(60);
-            User::create([
+            $user = User::create([
                 'email' => $request->input('email'),
                 'name' => $request->input('name'),
                 'password' => bcrypt($request->input('password')),
-                'api_token' => $token
+                'api_token' => Str::random(60)
             ]);
-            return response()->json(['token' => $token ]);
+            return response()->json($user);
 
         }
 
