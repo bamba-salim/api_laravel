@@ -15,12 +15,20 @@
     |
     */
 
+    ## register ##
     Route::post('/register', [AuthController::class, 'register']);
+
+    ## login ##
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::get('/pictures', function (){
+    ## get all picture ##
+    Route::post('/pictures',[picturectlr::class,'search']);
 
-    });
+    ## add picture ##
+    Route::post('/pictures/new',[picturectlr::class, 'store'])->middleware('App\Http\Middleware\React');
 
-    Route::get('/pictures',[picturectlr::class,'fetchAll']);
-    Route::post('/pictures',[picturectlr::class, 'store']);
+    ## get uniq picture##
+    Route::get('/pictures/{id}',[picturectlr::class, 'show'])->middleware('App\Http\Middleware\React');
+
+    ## search pictures ##
+    Route::POST('/pictures/search',[picturectlr::class, 'search']);
