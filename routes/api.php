@@ -28,7 +28,16 @@
     Route::post('/pictures/new',[picturectlr::class, 'store'])->middleware('App\Http\Middleware\React');
 
     ## get uniq picture##
-    Route::get('/pictures/{id}',[picturectlr::class, 'show'])->middleware('App\Http\Middleware\React');
+    Route::get('/pictures/{id}',[picturectlr::class, 'show']);
 
     ## search pictures ##
     Route::POST('/pictures/search',[picturectlr::class, 'search']);
+
+    ## check like ##
+    Route::get('/pictures/{id}/checkLike',[picturectlr::class, 'checkLike'])->middleware('App\Http\Middleware\React');
+
+    ## add like ##
+    Route::get('/pictures/{id}/handleLike',[picturectlr::class, 'handleLike'])->middleware('App\Http\Middleware\React');
+
+    ## count likes  ##
+    Route::get('/pictures/{id}/countLikes',[picturectlr::class, 'getLikesCount']);

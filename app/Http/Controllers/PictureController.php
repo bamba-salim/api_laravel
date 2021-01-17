@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Http\FormValidation\PictureFormValidation;
+    use App\Models\Like;
     use App\Models\Picture;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
@@ -54,12 +55,55 @@
         public function search(Request $request): JsonResponse
         {
             $param = $request->input('search');
-            if($param){
-                $pictures = Picture::where('title','like',"%$param%",)->get();
+            if ($param) {
+                $pictures = Picture::where('title', 'like', "%$param%",)->get();
             } else {
                 $pictures = Picture::all();
 
             }
             return response()->json($pictures);
         }
+
+        public function checkLike($id): JsonResponse
+        {
+            $picture = Picture::find($id);
+            if (Auth::user()) {
+                $like = Like::where('picture_id', $picture->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->first();
+                if ($like) return response()->json(true, 200);
+            }
+            return response()->json(false, 200);
+        }
+
+        public function handleLike($id): JsonResponse
+        {
+            $picture = Picture::find($id);
+            if (Auth::user()) {
+                $like = Like::where('picture_id', $picture->id)
+                    ->where('user_id', Auth::user()->id)
+                    ->first();
+                if ($like) {
+                    $like->delete();
+                    return response()->json(['success' => 'Picture unliked']);
+                } else {
+                    Like::create([
+                        'picture_id' => $picture->id,
+                        'user_id' => Auth::user()->id
+                    ]);
+                    return response()->json(['success' => 'Picture liked']);
+
+                }
+
+            }
+        }
+
+        public function getLikesCount($id): JsonResponse
+        {
+
+            $likes = Like::where('picture_id', $id)->count();
+            return response()->json($likes);
+
+        }
+
     }

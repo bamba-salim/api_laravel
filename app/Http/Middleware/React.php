@@ -9,16 +9,18 @@
 
     class React
     {
+        private $str;
+
         /**
          * Handle an incoming request.
          *
-         * @param \Illuminate\Http\Request $request
+         * @param Request $request
          * @param \Closure $next
          * @return mixed
          */
         public function handle(Request $request, Closure $next)
         {
-            $token = $request->header('API_TOKEN');
+            $token = $request->header('token');
 
             if (!$token) return response()->json(['message' => 'Missing Token'], 403);
 
