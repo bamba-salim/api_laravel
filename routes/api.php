@@ -41,3 +41,8 @@
 
     ## count likes  ##
     Route::get('/pictures/{id}/countLikes',[picturectlr::class, 'getLikesCount']);
+
+    ## test ##
+    Route::get('/test', function(){
+       return response()->json('page de test via l\'api');
+    });
