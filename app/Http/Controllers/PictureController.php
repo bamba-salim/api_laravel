@@ -56,7 +56,7 @@
         {
             $param = $request->input('search');
             if ($param) {
-                $pictures = Picture::where('title', 'like', "%$param%",)->get();
+                $pictures = Picture::where('title', 'like', "%$param%")->get();
             } else {
                 $pictures = Picture::all();
 
